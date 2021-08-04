@@ -10,11 +10,19 @@ pool:
   Default
 
 variables:
-  solution: 'BoardCrud.sln'
+  solution: '*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
 steps:
+- task: JavaToolInstaller@0
+  inputs:
+    versionSpec: '11'
+    jdkArchitectureOption: 'x64'
+    jdkSourceOption: 'LocalDirectory'
+    jdkFile: 'C://Users/clche/Downloads/jdk-11.0.12_windows-x64_bin.zip'
+    jdkDestinationDirectory: '/builds/binaries/externals'
+    cleanDestinationDirectory: true
 
 - task: SonarCloudPrepare@1
   inputs:
