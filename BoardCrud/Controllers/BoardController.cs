@@ -19,6 +19,12 @@ namespace BoardCrud.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
+        public string Testing()
+        {
+            return "Testing";
+        }
+
         
     }
 }
