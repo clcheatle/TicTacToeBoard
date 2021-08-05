@@ -46,11 +46,6 @@ steps:
     
 - task: NuGetToolInstaller@1
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
-
-
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'TictactoeBoardSonarCloudServiceConnection'
@@ -91,6 +86,13 @@ steps:
     codeCoverageTool: Cobertura
     summaryFileLocation: '**/coverage.cobertura.xml'
     failIfCoverageEmpty: true
+
+- task: BuildQualityChecks@8
+  inputs:
+    checkCoverage: true
+    coverageFailOption: 'fixed'
+    coverageType: 'lines'
+    coverageThreshold: '80'
 
 - task: SonarCloudAnalyze@1
 
