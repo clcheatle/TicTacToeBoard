@@ -62,9 +62,16 @@ steps:
 
 - task: DotNetCoreCLI@2
   inputs:
+    command: 'build'
+    projects: '$(solution)'
+    workingDirectory: 'BoardCrud'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  inputs:
     command: 'test'
     projects: 'BoardCrud-Test/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --collect "xplat code coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura,opencover'
+    arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger trx'
     testRunTitle: 'Dotnet tests running'
 
 - task: PublishCodeCoverageResults@1
