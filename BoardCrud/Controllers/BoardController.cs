@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BoardCrud.Models;
+using BoardCrud.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -11,18 +13,17 @@ namespace BoardCrud.Controllers
     [Route("[controller]")]
     public class BoardController : ControllerBase
     {
+        private readonly IBoardService _boardService;
 
-        private readonly ILogger<BoardController> _logger;
-
-        public BoardController(ILogger<BoardController> logger)
+        public BoardController(IBoardService boardService)
         {
-            _logger = logger;
+            _boardService = boardService;
         }
 
-        [HttpGet]
-        public string Testing()
+        [HttpPost("createGame")]
+        public GameState CreateGame(GameStateDTO gs)
         {
-            return "Testing";
+            return _boardService.CreateGameState(gs.Player1, gs.Player2);
         }
 
         
