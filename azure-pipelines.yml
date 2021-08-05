@@ -71,7 +71,7 @@ steps:
   inputs:
     command: 'test'
     projects: 'BoardCrud-Test/*.csproj'
-    arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger trx'
+    arguments: '--configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
     testRunTitle: 'Dotnet tests running'
 
 - task: PublishCodeCoverageResults@1
