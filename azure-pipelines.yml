@@ -56,7 +56,7 @@ steps:
     projectName: 'tictactoe'
     extraProperties:
       sonar.exclusions=**/Program.cs, **/Startup.cs
-      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/**/coverage.cobertura.xml
+      sonar.cs.opencover.reportsPaths=$(Agent.TempDirectory)/**/coverage.cobertura.xml
       
 
 - task: DotNetCoreCLI@2
@@ -70,7 +70,8 @@ steps:
   displayName: dotnet test
   inputs:
     command: test
-    arguments: '--configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
+    #arguments: '--configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
+    arguments: '--configuration $(buildConfiguration) --collect "xplat code coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura,opencover'
     projects: 'BoardCrud-Test/**/*.csproj'
     nobuild: true
 
