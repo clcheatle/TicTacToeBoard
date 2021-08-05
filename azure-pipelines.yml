@@ -57,7 +57,8 @@ steps:
     projectName: 'tictactoe'
     extraProperties:
       sonar.exclusions=**/Program.cs, **/Startup.cs
-      sonar.cs.opencover.reportsPaths=$(Agent.TempDirectory)/*/coverage.opencover.xml
+      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/**/coverage.opencover.xml
+      sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trx
 
 - task: DotNetCoreCLI@2
   inputs:
