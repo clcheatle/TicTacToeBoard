@@ -29,7 +29,7 @@ steps:
   displayName: 'Install .NET Core Runtime'
   inputs:
     packageType: 'runtime'
-    version: '3.x'
+    version: '2.x'
 
 - task: JavaToolInstaller@0
   inputs:
