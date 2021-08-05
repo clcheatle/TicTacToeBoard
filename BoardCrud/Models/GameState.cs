@@ -2,9 +2,11 @@ namespace BoardCrud.Models
 {
     public class GameState
     {
-        public int player1Id { get; set; }
-        public int player2Id { get; set; }
-        public int activePlayer { get; set; }
-        public bool gameOver { get; set; }
+        public Player Player1 { get; set; }
+        public Player Player2 { get; set; }
+        public Player ActivePlayer { get; set; }
+        public bool GameOver { get; set; }
+        public Player Winner { get; set; }
+        public GameBoard Board { get; set; }
     }
 }
