@@ -260,5 +260,22 @@ namespace BoardCrud_Test
             Assert.IsNull(gbTest.Winner);
         }
 
+        [TestMethod]
+        public void TestGameStateResetsPartialBoard()
+        {
+            GameState gs = _BoardService.CreateGameState(p1, p2);
+
+            GameState gbTest = _BoardService.PlayerMove(gs, 0);
+            gbTest = _BoardService.PlayerMove(gbTest, 3);
+            gbTest = _BoardService.PlayerMove(gbTest, 1);
+
+            gbTest = _BoardService.ResetGameState(gbTest);
+            Assert.IsNull(gbTest.Winner);
+            Assert.IsFalse(gbTest.GameOver);
+            CollectionAssert.AreEqual(new string[]{"0", "1", "2", "3", "4", "5", "6", "7", "8"}, gbTest.Board.BoardMatrix);
+            Assert.AreEqual(0, gbTest.Turn);
+            Assert.AreEqual(p1, gbTest.ActivePlayer);
+        }
+
     }
 }
