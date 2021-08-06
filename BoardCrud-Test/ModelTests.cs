@@ -19,7 +19,7 @@ namespace BoardCrud_Test
             player2.name = "Jacky";
             player2.symbol = "O";
             gameboardTest.GameBoardId = new System.Guid("78da3f7b-6993-4113-9e10-7aea530e3711");
-            gameboardTest.BoardMatrix = new string[]{"-", "-", "-","-", "-", "-","-", "-", "-"};
+            gameboardTest.BoardMatrix = new string[]{"0", "1", "2","3", "4", "5","6", "7", "8"};
         }
 
         [TestMethod]
@@ -35,8 +35,8 @@ namespace BoardCrud_Test
         {  
             GameBoard gameBoard = new GameBoard();
             gameBoard.GameBoardId = new System.Guid("78da3f7b-6993-4113-9e10-7aea530e3711");
-            gameBoard.BoardMatrix = new string[]{"-", "-", "-","-", "-", "-","-", "-", "-"};
-            CollectionAssert.AreEqual(new string[]{"-", "-", "-","-", "-", "-","-", "-", "-"}, gameBoard.BoardMatrix);
+            gameBoard.BoardMatrix = new string[]{"0", "1", "2","3", "4", "5","6", "7", "8"};
+            CollectionAssert.AreEqual(new string[]{"0", "1", "2","3", "4", "5","6", "7", "8"}, gameBoard.BoardMatrix);
         }
 
         [TestMethod]
@@ -50,7 +50,7 @@ namespace BoardCrud_Test
             gs.Winner = null;
             GameBoard gb = new GameBoard();
             gb.GameBoardId = new System.Guid("78da3f7b-6993-4113-9e10-7aea530e3711");
-            gb.BoardMatrix = new string[]{"-", "-", "-","-", "-", "-","-", "-", "-"};
+            gb.BoardMatrix = new string[]{"0", "1", "2","3", "4", "5","6", "7", "8"};
             gs.Board = gb;
 
             Assert.AreEqual(player1, gs.Player1);

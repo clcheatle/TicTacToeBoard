@@ -7,6 +7,7 @@ namespace BoardCrud.Services
     {
         GameBoard CreateGameBoard();
         GameState CreateGameState(Player p1, Player p2);
+        GameState PlayerMove(GameState gb, int movePosition);
          
     }
 }
