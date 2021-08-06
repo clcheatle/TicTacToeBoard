@@ -49,7 +49,7 @@ namespace BoardCrud_Test
             gs.GameOver = false;
             gs.Winner = null;
             GameBoard gb = new GameBoard();
-            gb.GameBoardId = new System.Guid("78da3f7b-6993-4113-9e10-7aea530e3711");
+            gb.GameBoardId = 1;
             gb.BoardMatrix = new string[]{"0", "1", "2","3", "4", "5","6", "7", "8"};
             gs.Board = gb;
 
@@ -69,11 +69,14 @@ namespace BoardCrud_Test
             gs.GameOver = false;
             gs.Winner = null;
             GameBoard gb = new GameBoard();
-            gb.GameBoardId = new System.Guid("78da3f7b-6993-4113-9e10-7aea530e3711");
+            gb.GameBoardId = 1;
             gb.BoardMatrix = new string[]{"O", "O", "2","X", "X", "5","6", "7", "8"};
             gs.Board = gb;
 
-            GameState gsTest = boardController.PlayerMove(gs, 5);
+            Move m = new Move();
+            m.GameState = gs;
+            m.MovePosition = 5;
+            GameState gsTest = boardController.PlayerMove(m);
             mockBoardService.Verify(mock => mock.PlayerMove(gs,5), Times.Once());
 
         }
@@ -88,7 +91,7 @@ namespace BoardCrud_Test
             gs.GameOver = false;
             gs.Winner = null;
             GameBoard gb = new GameBoard();
-            gb.GameBoardId = new System.Guid("78da3f7b-6993-4113-9e10-7aea530e3711");
+            gb.GameBoardId = 1;
             gb.BoardMatrix = new string[]{"O", "O", "2","X", "X", "5","6", "7", "8"};
             gs.Board = gb;
 
@@ -97,9 +100,13 @@ namespace BoardCrud_Test
             updatedGS.GameOver = true;
             updatedGS.Board.BoardMatrix[5] = "X";
 
+            Move m = new Move();
+            m.GameState = gs;
+            m.MovePosition = 5;
+
             mockBoardService.Setup(mock => mock.PlayerMove(gs, 5)).Returns(updatedGS);
 
-            GameState gsTest = boardController.PlayerMove(gs, 5);
+            GameState gsTest = boardController.PlayerMove(m);
             Assert.AreEqual(gs, gsTest);
         }
     }

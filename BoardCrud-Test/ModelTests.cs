@@ -12,20 +12,20 @@ namespace BoardCrud_Test
 
         public ModelTests()
         {
-            player1.playerId = new System.Guid("78da3f7b-6993-4113-9e10-7aea530e3711");
+            player1.playerId = 1;
             player1.name = "John";
             player1.symbol = "X";
-            player2.playerId = new System.Guid("78da3f7c-6993-4113-9e10-7aea530e3711");
+            player2.playerId = 2;
             player2.name = "Jacky";
             player2.symbol = "O";
-            gameboardTest.GameBoardId = new System.Guid("78da3f7b-6993-4113-9e10-7aea530e3711");
+            gameboardTest.GameBoardId = 1;
             gameboardTest.BoardMatrix = new string[]{"0", "1", "2","3", "4", "5","6", "7", "8"};
         }
 
         [TestMethod]
         public void TestPlayerModelCreatesSuccessfully()
         {  
-            Assert.AreEqual(new System.Guid("78da3f7b-6993-4113-9e10-7aea530e3711"), player1.playerId);
+            Assert.AreEqual(1, player1.playerId);
             Assert.AreEqual("John", player1.name);
             Assert.AreEqual("X", player1.symbol);
         }
@@ -34,7 +34,7 @@ namespace BoardCrud_Test
         public void TestGameBoardModelCreatesSuccessfully()
         {  
             GameBoard gameBoard = new GameBoard();
-            gameBoard.GameBoardId = new System.Guid("78da3f7b-6993-4113-9e10-7aea530e3711");
+            gameBoard.GameBoardId = 1;
             gameBoard.BoardMatrix = new string[]{"0", "1", "2","3", "4", "5","6", "7", "8"};
             CollectionAssert.AreEqual(new string[]{"0", "1", "2","3", "4", "5","6", "7", "8"}, gameBoard.BoardMatrix);
         }
@@ -49,7 +49,7 @@ namespace BoardCrud_Test
             gs.GameOver = false;
             gs.Winner = null;
             GameBoard gb = new GameBoard();
-            gb.GameBoardId = new System.Guid("78da3f7b-6993-4113-9e10-7aea530e3711");
+            gb.GameBoardId = 1;
             gb.BoardMatrix = new string[]{"0", "1", "2","3", "4", "5","6", "7", "8"};
             gs.Board = gb;
 
