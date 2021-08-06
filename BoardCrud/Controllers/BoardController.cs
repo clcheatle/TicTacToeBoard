@@ -21,7 +21,7 @@ namespace BoardCrud.Controllers
         }
 
         [HttpPost("createGame")]
-        public GameState CreateGame(GameStateDTO gs)
+        public GameState CreateGame(GameStateDto gs)
         {
             return _boardService.CreateGameState(gs.Player1, gs.Player2);
         }
@@ -29,7 +29,7 @@ namespace BoardCrud.Controllers
         [HttpPost("playerMove")]
         public GameState PlayerMove([FromBody] Move m)
         {
-            return _boardService.PlayerMove(m.GameState, m.MovePosition);;
+            return _boardService.PlayerMove(m.GameState, m.MovePosition);
         }
 
         

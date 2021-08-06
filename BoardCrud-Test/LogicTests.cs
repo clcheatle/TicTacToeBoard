@@ -56,7 +56,7 @@ namespace BoardCrud_Test
 
             GameState gbTest = _BoardService.PlayerMove(gs, movePosition);
 
-            Assert.AreEqual(gbTest.Board.BoardMatrix[4], "X");
+            Assert.AreEqual("X", gbTest.Board.BoardMatrix[4]);
         }
 
         [TestMethod]

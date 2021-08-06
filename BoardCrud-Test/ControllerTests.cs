@@ -27,7 +27,7 @@ namespace BoardCrud_Test
         [TestMethod]
         public void TestControllerCallsOnIBoardService()
         {
-            GameStateDTO gsdto = new GameStateDTO();
+            GameStateDto gsdto = new GameStateDto();
             gsdto.Player1 = player1;
             gsdto.Player2 = player2;
 
@@ -38,7 +38,7 @@ namespace BoardCrud_Test
         [TestMethod]
         public void TestControllerReturnsNewGameState()
         {
-            GameStateDTO gsdto = new GameStateDTO();
+            GameStateDto gsdto = new GameStateDto();
             gsdto.Player1 = player1;
             gsdto.Player2 = player2;
 
