@@ -32,6 +32,12 @@ namespace BoardCrud.Controllers
             return _boardService.PlayerMove(m.GameState, m.MovePosition);
         }
 
+        [HttpPost("resetBoard")]
+        public GameState ResetGame(GameState gs)
+        {
+            return _boardService.ResetGameState(gs);
+        }
+
         
     }
 }

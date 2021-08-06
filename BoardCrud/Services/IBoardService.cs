@@ -8,6 +8,7 @@ namespace BoardCrud.Services
         GameBoard CreateGameBoard();
         GameState CreateGameState(Player p1, Player p2);
         GameState PlayerMove(GameState gs, int movePosition);
+        GameState ResetGameState(GameState gs);
          
     }
 }

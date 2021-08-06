@@ -37,6 +37,15 @@ namespace BoardCrud.Services
             return gs;
         }
 
+        public GameState ResetGameState(GameState gs)
+        {
+            gs.Board.BoardMatrix = new string[]{"0", "1", "2", "3", "4", "5", "6", "7", "8"};
+            gs.Turn = 0;
+            gs.ActivePlayer = gs.Player1;
+            
+            return gs;
+        }
+
         private static void ChangeActivePlayer(GameState gb)
         {
             if(gb.ActivePlayer.playerId == gb.Player1.playerId) 
@@ -107,6 +116,5 @@ namespace BoardCrud.Services
 
             return false;
         }
-
     }
 }

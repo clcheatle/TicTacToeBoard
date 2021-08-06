@@ -109,5 +109,49 @@ namespace BoardCrud_Test
             GameState gsTest = boardController.PlayerMove(m);
             Assert.AreEqual(gs, gsTest);
         }
+
+        public void TestBoardControllerCallsResetService()
+        {
+            GameState gs = new GameState();
+            gs.Player1 = player1;
+            gs.Player2 = player2;
+            gs.ActivePlayer = player1;
+            gs.GameOver = false;
+            gs.Winner = null;
+            GameBoard gb = new GameBoard();
+            gb.GameBoardId = 1;
+            gb.BoardMatrix = new string[]{"O", "O", "2","X", "X", "5","6", "7", "8"};
+            gs.Board = gb;
+
+            GameState gsTest = boardController.ResetGame(gs);
+            mockBoardService.Verify(mock => mock.ResetGameState(gs), Times.Once());
+
+        }
+
+        [TestMethod]
+        public void TestBoardControllerResetsGameState()
+        {
+            GameState gs = new GameState();
+            gs.Player1 = player1;
+            gs.Player2 = player2;
+            gs.ActivePlayer = player1;
+            gs.GameOver = false;
+            gs.Winner = null;
+            GameBoard gb = new GameBoard();
+            gb.GameBoardId = 1;
+            gb.BoardMatrix = new string[]{"O", "O", "2","X", "X", "5","6", "7", "8"};
+            gs.Board = gb;
+
+            GameState updatedGS = gs;
+            updatedGS.Winner = null;
+            updatedGS.GameOver = false;
+            updatedGS.Turn = 0;
+            updatedGS.Board.BoardMatrix = new string[]{"0", "1", "2","3", "4", "5","6", "7", "8"};
+
+            mockBoardService.Setup(mock => mock.ResetGameState(gs)).Returns(updatedGS);
+
+            GameState gsTest = boardController.ResetGame(gs);
+            Assert.AreEqual(gs, gsTest);
+        }
     }
 }
