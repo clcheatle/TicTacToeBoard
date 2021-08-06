@@ -37,7 +37,7 @@ namespace BoardCrud.Services
             return gs;
         }
 
-        private void ChangeActivePlayer(GameState gb)
+        private static void ChangeActivePlayer(GameState gb)
         {
             if(gb.ActivePlayer.playerId == gb.Player1.playerId) 
             {
@@ -49,7 +49,7 @@ namespace BoardCrud.Services
             }
         }
 
-        private bool ThreeInRow(GameBoard gb)
+        private static bool ThreeInRow(GameBoard gb)
         {
             
             if(RowWin(gb) || ColWin(gb) || DiagonalWin(gb)) return true;
@@ -57,7 +57,7 @@ namespace BoardCrud.Services
             return false;
         }
 
-        private bool isGameOver (GameState gs)
+        private static bool isGameOver (GameState gs)
         {
             if(ThreeInRow(gs.Board))
             {
@@ -73,7 +73,7 @@ namespace BoardCrud.Services
             return false;
         }
 
-        private bool RowWin(GameBoard gb)
+        private static bool RowWin(GameBoard gb)
         {
             if(gb.BoardMatrix[0] == gb.BoardMatrix[1] && gb.BoardMatrix[0] == gb.BoardMatrix[2]
             || gb.BoardMatrix[3] == gb.BoardMatrix[4] && gb.BoardMatrix[3] == gb.BoardMatrix[5]
@@ -85,7 +85,7 @@ namespace BoardCrud.Services
             return false;
         }
 
-        private bool ColWin(GameBoard gb)
+        private static bool ColWin(GameBoard gb)
         {
             if(gb.BoardMatrix[0] == gb.BoardMatrix[3] && gb.BoardMatrix[0] == gb.BoardMatrix[6]
             || gb.BoardMatrix[1] == gb.BoardMatrix[4] && gb.BoardMatrix[1] == gb.BoardMatrix[7]
@@ -97,7 +97,7 @@ namespace BoardCrud.Services
             return false;
         }
 
-        private bool DiagonalWin(GameBoard gb)
+        private static bool DiagonalWin(GameBoard gb)
         {
             if(gb.BoardMatrix[0] == gb.BoardMatrix[4] && gb.BoardMatrix[0] == gb.BoardMatrix[8]
             || gb.BoardMatrix[2] == gb.BoardMatrix[4] && gb.BoardMatrix[2] == gb.BoardMatrix[6])
