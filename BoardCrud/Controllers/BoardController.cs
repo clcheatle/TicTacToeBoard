@@ -27,9 +27,9 @@ namespace BoardCrud.Controllers
         }
 
         [HttpPost("playerMove")]
-        public GameState PlayerMove([FromQuery] GameState gb, [FromQuery] int movePosition)
+        public GameState PlayerMove([FromBody] Move m)
         {
-            return _boardService.PlayerMove(gb, movePosition);;
+            return _boardService.PlayerMove(m.GameState, m.MovePosition);;
         }
 
         

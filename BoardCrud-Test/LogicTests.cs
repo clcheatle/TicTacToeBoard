@@ -16,11 +16,13 @@ namespace BoardCrud_Test
         {
             _BoardService = new BoardService();
             p1 = new Player();
+            p1.playerId = 1;
             p1.name = "John";
             p1.symbol = "X";
             p2 = new Player();
-            p2.name = "Jacky";
-            p2.symbol = "0";
+            p2.playerId = 2;
+            p2.name = "Computer";
+            p2.symbol = "O";
         }
 
         [TestMethod]
@@ -193,6 +195,42 @@ namespace BoardCrud_Test
             gbTest = _BoardService.PlayerMove(gbTest, 4);
 
             Assert.IsFalse(gbTest.GameOver);
+        }
+
+        [TestMethod]
+        public void TestGameBoardGameOverReturnsTrueIsTurnIs9()
+        {
+            GameState gs = _BoardService.CreateGameState(p1, p2);
+
+            GameState gbTest = _BoardService.PlayerMove(gs, 0);
+            gbTest = _BoardService.PlayerMove(gbTest, 1);
+            gbTest = _BoardService.PlayerMove(gbTest, 2);
+            gbTest = _BoardService.PlayerMove(gbTest, 4);
+            gbTest = _BoardService.PlayerMove(gbTest, 3);
+            gbTest = _BoardService.PlayerMove(gbTest, 5);
+            gbTest = _BoardService.PlayerMove(gbTest, 7);
+            gbTest = _BoardService.PlayerMove(gbTest, 6);
+            gbTest = _BoardService.PlayerMove(gbTest, 8);
+
+            Assert.IsTrue(gbTest.GameOver);
+        }
+
+        [TestMethod]
+        public void TestGameStateWinnerIsNullIfDraw()
+        {
+            GameState gs = _BoardService.CreateGameState(p1, p2);
+
+            GameState gbTest = _BoardService.PlayerMove(gs, 0);
+            gbTest = _BoardService.PlayerMove(gbTest, 1);
+            gbTest = _BoardService.PlayerMove(gbTest, 2);
+            gbTest = _BoardService.PlayerMove(gbTest, 4);
+            gbTest = _BoardService.PlayerMove(gbTest, 3);
+            gbTest = _BoardService.PlayerMove(gbTest, 5);
+            gbTest = _BoardService.PlayerMove(gbTest, 7);
+            gbTest = _BoardService.PlayerMove(gbTest, 6);
+            gbTest = _BoardService.PlayerMove(gbTest, 8);
+
+            Assert.IsNull(gbTest.Winner);
         }
 
         [TestMethod]

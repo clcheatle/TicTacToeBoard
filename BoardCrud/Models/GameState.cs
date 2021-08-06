@@ -8,5 +8,6 @@ namespace BoardCrud.Models
         public bool GameOver { get; set; }
         public Player Winner { get; set; }
         public GameBoard Board { get; set; }
+        public int Turn { get; set; }
     }
 }
