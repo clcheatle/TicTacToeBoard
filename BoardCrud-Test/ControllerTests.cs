@@ -19,9 +19,9 @@ namespace BoardCrud_Test
             mockBoardService = new Mock<IBoardService>();
             boardController = new BoardController(mockBoardService.Object);
             player1.name = "John";
-            player1.symbol = "X";
+            player1.symbol = 'X';
             player2.name = "Jacky";
-            player2.symbol = "0";
+            player2.symbol = 'O';
         }
         
         [TestMethod]
@@ -50,7 +50,7 @@ namespace BoardCrud_Test
             gs.Winner = null;
             GameBoard gb = new GameBoard();
             gb.GameBoardId = 1;
-            gb.BoardMatrix = new string[]{"0", "1", "2","3", "4", "5","6", "7", "8"};
+            gb.BoardMatrix = new char[]{'0', '1', '2','3', '4', '5','6', '7', '8'};
             gs.Board = gb;
 
             mockBoardService.Setup(mock => mock.CreateGameState(player1, player2)).Returns(gs);
@@ -70,7 +70,7 @@ namespace BoardCrud_Test
             gs.Winner = null;
             GameBoard gb = new GameBoard();
             gb.GameBoardId = 1;
-            gb.BoardMatrix = new string[]{"O", "O", "2","X", "X", "5","6", "7", "8"};
+            gb.BoardMatrix = new char[]{'0', '1', '2','3', '4', '5','6', '7', '8'};
             gs.Board = gb;
 
             Move m = new Move();
@@ -92,13 +92,13 @@ namespace BoardCrud_Test
             gs.Winner = null;
             GameBoard gb = new GameBoard();
             gb.GameBoardId = 1;
-            gb.BoardMatrix = new string[]{"O", "O", "2","X", "X", "5","6", "7", "8"};
+            gb.BoardMatrix = new char[]{'0', '1', '2','3', '4', '5','6', '7', '8'};
             gs.Board = gb;
 
             GameState updatedGS = gs;
             updatedGS.Winner = player1;
             updatedGS.GameOver = true;
-            updatedGS.Board.BoardMatrix[5] = "X";
+            updatedGS.Board.BoardMatrix[5] = 'X';
 
             Move m = new Move();
             m.GameState = gs;
@@ -120,7 +120,7 @@ namespace BoardCrud_Test
             gs.Winner = null;
             GameBoard gb = new GameBoard();
             gb.GameBoardId = 1;
-            gb.BoardMatrix = new string[]{"O", "O", "2","X", "X", "5","6", "7", "8"};
+            gb.BoardMatrix = new char[]{'0', '1', '2','3', '4', '5','6', '7', '8'};
             gs.Board = gb;
 
             GameState gsTest = boardController.ResetGame(gs);
@@ -139,19 +139,63 @@ namespace BoardCrud_Test
             gs.Winner = null;
             GameBoard gb = new GameBoard();
             gb.GameBoardId = 1;
-            gb.BoardMatrix = new string[]{"O", "O", "2","X", "X", "5","6", "7", "8"};
+            gb.BoardMatrix = new char[]{'0', '1', '2','3', '4', '5','6', '7', '8'};
             gs.Board = gb;
 
             GameState updatedGS = gs;
             updatedGS.Winner = null;
             updatedGS.GameOver = false;
             updatedGS.Turn = 0;
-            updatedGS.Board.BoardMatrix = new string[]{"0", "1", "2","3", "4", "5","6", "7", "8"};
+            updatedGS.Board.BoardMatrix = new char[]{'0', '1', '2','3', '4', '5','6', '7', '8'};
 
             mockBoardService.Setup(mock => mock.ResetGameState(gs)).Returns(updatedGS);
 
             GameState gsTest = boardController.ResetGame(gs);
             Assert.AreEqual(gs, gsTest);
+        }
+
+        [TestMethod]
+        public void TestControllerCallsBoardServiceForComputerMoveEndpoint()
+        {
+            GameState gs = new GameState();
+            gs.Player1 = player1;
+            gs.Player2 = player2;
+            gs.ActivePlayer = player1;
+            gs.GameOver = false;
+            gs.Winner = null;
+            GameBoard gb = new GameBoard();
+            gb.GameBoardId = 1;
+            gb.BoardMatrix = new char[]{'0', '1', '2','3', '4', '5','6', '7', '8'};
+            gs.Board = gb;
+
+            Move m = new Move();
+            m.GameState = gs;
+            m.MovePosition = 5;
+            GameState gsTest = boardController.PlayerMove(m);
+            gsTest = boardController.ComputerMove(gsTest);
+            mockBoardService.Verify(mock => mock.ComputerMove(gsTest), Times.Once());
+        }
+
+        [TestMethod]
+        public void TestControllerReturnsUpdatedGameStateComputerMoveEndpoint()
+        {
+            GameState gs = new GameState();
+            gs.Player1 = player1;
+            gs.Player2 = player2;
+            gs.ActivePlayer = player1;
+            gs.GameOver = false;
+            gs.Winner = null;
+            GameBoard gb = new GameBoard();
+            gb.GameBoardId = 1;
+            gb.BoardMatrix = new char[]{'0', '1', '2','3', '4', '5','6', '7', '8'};
+            gs.Board = gb;
+
+            Move m = new Move();
+            m.GameState = gs;
+            m.MovePosition = 5;
+            GameState gsTest = boardController.PlayerMove(m);
+            gsTest = boardController.ComputerMove(gsTest);
+            mockBoardService.Verify(mock => mock.ComputerMove(gsTest), Times.Once());
         }
     }
 }

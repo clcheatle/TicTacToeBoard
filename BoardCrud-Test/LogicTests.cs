@@ -18,11 +18,11 @@ namespace BoardCrud_Test
             p1 = new Player();
             p1.playerId = 1;
             p1.name = "John";
-            p1.symbol = "X";
+            p1.symbol = 'X';
             p2 = new Player();
             p2.playerId = 2;
             p2.name = "Computer";
-            p2.symbol = "O";
+            p2.symbol = 'O';
         }
 
         [TestMethod]
@@ -30,7 +30,7 @@ namespace BoardCrud_Test
         {
             GameBoard servicegb = _BoardService.CreateGameBoard();
 
-            string[] matrix = new string[]{"0", "1", "2","3", "4", "5","6", "7", "8"};
+            char[] matrix = new char[]{'0', '1', '2','3', '4', '5','6', '7', '8'};
 
             CollectionAssert.AreEqual(matrix, servicegb.BoardMatrix);
         }
@@ -45,7 +45,7 @@ namespace BoardCrud_Test
             Assert.IsFalse(gs.GameOver);
             Assert.IsNull(gs.Winner);
             Assert.AreEqual(gs.ActivePlayer, p1);
-            CollectionAssert.AreEqual(gs.Board.BoardMatrix, new string[]{"0", "1", "2","3", "4", "5","6", "7", "8"});
+            CollectionAssert.AreEqual(gs.Board.BoardMatrix, new char[]{'0', '1', '2','3', '4', '5','6', '7', '8'});
         }
 
         [TestMethod]
@@ -56,7 +56,7 @@ namespace BoardCrud_Test
 
             GameState gbTest = _BoardService.PlayerMove(gs, movePosition);
 
-            Assert.AreEqual("X", gbTest.Board.BoardMatrix[4]);
+            Assert.AreEqual('X', gbTest.Board.BoardMatrix[4]);
         }
 
         [TestMethod]
@@ -272,10 +272,93 @@ namespace BoardCrud_Test
             gbTest = _BoardService.ResetGameState(gbTest);
             Assert.IsNull(gbTest.Winner);
             Assert.IsFalse(gbTest.GameOver);
-            CollectionAssert.AreEqual(new string[]{"0", "1", "2", "3", "4", "5", "6", "7", "8"}, gbTest.Board.BoardMatrix);
+            CollectionAssert.AreEqual(new char[]{'0', '1', '2','3', '4', '5','6', '7', '8'}, gbTest.Board.BoardMatrix);
             Assert.AreEqual(0, gbTest.Turn);
             Assert.AreEqual(p1, gbTest.ActivePlayer);
         }
 
+        [TestMethod]
+        public void TestComputerMoveReturnsUpdatedMove()
+        {
+            GameState gs = _BoardService.CreateGameState(p1, p2);
+
+            GameState gbTest = _BoardService.PlayerMove(gs, 0);
+
+            char[] expectedBoard = new char[]{'X', '1', '2', '3', 'O', '5', '6', '7', '8'};
+
+            gbTest = _BoardService.ComputerMove(gbTest);
+
+            CollectionAssert.AreEqual(expectedBoard, gbTest.Board.BoardMatrix);
+            Assert.IsFalse(gs.GameOver);
+            Assert.AreEqual(p1, gs.ActivePlayer);
+            Assert.AreEqual(2, gs.Turn);
+        }
+
+        [TestMethod]
+        public void TestComputerMoveReturnsUpdatedWinner()
+        {
+            GameState gs = _BoardService.CreateGameState(p1, p2);
+
+            GameState gbTest = _BoardService.PlayerMove(gs, 0);
+
+            gbTest = _BoardService.ComputerMove(gbTest);
+
+            gbTest = _BoardService.PlayerMove(gbTest, 2);
+
+            gbTest = _BoardService.ComputerMove(gbTest);
+
+            gbTest = _BoardService.PlayerMove(gbTest, 8);
+
+            gbTest = _BoardService.ComputerMove(gbTest);
+
+            gbTest = _BoardService.PlayerMove(gbTest, 7);
+
+            gbTest = _BoardService.ComputerMove(gbTest);
+
+            char[] expectedBoard = new char[]{'X', 'O', 'X', 'O', 'O', 'O', '6', 'X', 'X'};
+
+            
+
+            CollectionAssert.AreEqual(expectedBoard, gbTest.Board.BoardMatrix);
+            Assert.IsTrue(gs.GameOver);
+            Assert.AreEqual(p1, gs.ActivePlayer);
+            Assert.AreEqual(8, gs.Turn);
+            Assert.AreEqual(p2, gs.Winner);
+        }
+
+        [TestMethod]
+        public void TestComputerMoveReturnsDraw()
+        {
+            GameState gs = _BoardService.CreateGameState(p1, p2);
+
+            GameState gbTest = _BoardService.PlayerMove(gs, 0);
+
+            gbTest = _BoardService.ComputerMove(gbTest);
+
+            gbTest = _BoardService.PlayerMove(gbTest, 7);
+
+            gbTest = _BoardService.ComputerMove(gbTest);
+
+            gbTest = _BoardService.PlayerMove(gbTest, 5);
+
+            gbTest = _BoardService.ComputerMove(gbTest);
+
+            gbTest = _BoardService.PlayerMove(gbTest, 6);
+
+            gbTest = _BoardService.ComputerMove(gbTest);
+
+            gbTest = _BoardService.PlayerMove(gbTest, 1);
+
+
+            char[] expectedBoard = new char[]{'X', 'X', 'O', 'O', 'O', 'X', 'X', 'X', 'O'};
+
+            CollectionAssert.AreEqual(expectedBoard, gbTest.Board.BoardMatrix);
+            Assert.IsTrue(gs.GameOver);
+            Assert.AreEqual(p2, gs.ActivePlayer);
+            Assert.AreEqual(9, gs.Turn);
+            Assert.IsNull(gs.Winner);
+        }
+
+        
     }
 }

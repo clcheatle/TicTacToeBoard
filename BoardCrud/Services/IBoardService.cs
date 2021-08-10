@@ -9,6 +9,7 @@ namespace BoardCrud.Services
         GameState CreateGameState(Player p1, Player p2);
         GameState PlayerMove(GameState gs, int movePosition);
         GameState ResetGameState(GameState gs);
+        GameState ComputerMove(GameState gs);
          
     }
 }

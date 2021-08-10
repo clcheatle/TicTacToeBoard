@@ -14,12 +14,12 @@ namespace BoardCrud_Test
         {
             player1.playerId = 1;
             player1.name = "John";
-            player1.symbol = "X";
+            player1.symbol = 'X';
             player2.playerId = 2;
             player2.name = "Jacky";
-            player2.symbol = "O";
+            player2.symbol = 'O';
             gameboardTest.GameBoardId = 1;
-            gameboardTest.BoardMatrix = new string[]{"0", "1", "2","3", "4", "5","6", "7", "8"};
+            gameboardTest.BoardMatrix = new char[]{'0', '1', '2','3', '4', '5','6', '7', '8'};
         }
 
         [TestMethod]
@@ -27,7 +27,7 @@ namespace BoardCrud_Test
         {  
             Assert.AreEqual(1, player1.playerId);
             Assert.AreEqual("John", player1.name);
-            Assert.AreEqual("X", player1.symbol);
+            Assert.AreEqual('X', player1.symbol);
         }
 
         [TestMethod]
@@ -35,8 +35,8 @@ namespace BoardCrud_Test
         {  
             GameBoard gameBoard = new GameBoard();
             gameBoard.GameBoardId = 1;
-            gameBoard.BoardMatrix = new string[]{"0", "1", "2","3", "4", "5","6", "7", "8"};
-            CollectionAssert.AreEqual(new string[]{"0", "1", "2","3", "4", "5","6", "7", "8"}, gameBoard.BoardMatrix);
+            gameBoard.BoardMatrix = new char[]{'0', '1', '2','3', '4', '5','6', '7', '8'};
+            CollectionAssert.AreEqual(new char[]{'0', '1', '2','3', '4', '5','6', '7', '8'}, gameBoard.BoardMatrix);
         }
 
         [TestMethod]
@@ -50,7 +50,7 @@ namespace BoardCrud_Test
             gs.Winner = null;
             GameBoard gb = new GameBoard();
             gb.GameBoardId = 1;
-            gb.BoardMatrix = new string[]{"0", "1", "2","3", "4", "5","6", "7", "8"};
+            gb.BoardMatrix = new char[]{'0', '1', '2','3', '4', '5','6', '7', '8'};
             gs.Board = gb;
 
             Assert.AreEqual(player1, gs.Player1);
