@@ -38,6 +38,12 @@ namespace BoardCrud.Controllers
             return _boardService.ResetGameState(gs);
         }
 
+        [HttpPost("computerMove")]
+        public GameState ComputerMove(GameState gs)
+        {
+            return _boardService.ComputerMove(gs);
+        }
+
         
     }
 }
