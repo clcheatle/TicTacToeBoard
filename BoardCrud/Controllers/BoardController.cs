@@ -42,8 +42,6 @@ namespace BoardCrud.Controllers
         public GameState ComputerMove(GameState gs)
         {
             return _boardService.ComputerMove(gs);
-        }
-
-        
+        }    
     }
 }
